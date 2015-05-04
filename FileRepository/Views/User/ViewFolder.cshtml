@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "ViewFolder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>Folder View</h1></center>
+<hr />
+<div class="btn btn-default">
+    @Html.ActionLink("Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })
+</div>
+
+    <center><input id="prev" class="btn btn-default" type="button" value="prev" />    <input id="next" class="btn btn-default" type="button" value="next"></center>
+    <div id="MultipleFiles">
+        @foreach (var item in ViewBag.FilesData)
+        {
+            <div class="MultipleFilesChild" style="display:none">FileName: @item.Key<pre class="pre-scrollable line-number">@item.Value</pre></div>
+        }
+    </div>
+
+
+    @*-------------------------------script section --------------------------------------------*@
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //show first file while others are hidden
+            $('.MultipleFilesChild').first().fadeIn(500);
+
+            //When next is clicked hide previous show next file
+            $("#next").click(function () {
+                if ($("#MultipleFiles div:visible").next().length != 0)
+                    $("#MultipleFiles div:visible").next().fadeIn(500).prev().fadeOut();
+                else {
+                    $("#MultipleFiles div:visible").fadeOut(500);
+                    $("#MultipleFiles div:first").fadeIn(500);
+                }
+                return false;
+            });
+
+            //When previous is clicked hide current file and show previou
+            $("#prev").click(function () {
+
+                if ($("#MultipleFiles div:visible").prev().length != 0)
+                    $("#MultipleFiles div:visible").prev().fadeIn(500).next().fadeOut();
+                else {
+                    $("#MultipleFiles div:visible").fadeOut(500);
+                    $("#MultipleFiles div:last").fadeIn(500);
+                }
+                return false;
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var pre = document.getElementsByTagName('pre'),
+                pl = pre.length;
+            for (var i = 0; i < pl; i++) {
+                pre[i].innerHTML = '<span class="line-number"></span>' + pre[i].innerHTML + '<span class="cl"></span>';
+                var num = pre[i].innerHTML.split(/\n/).length;
+                for (var j = 0; j < num; j++) {
+                    var line_num = pre[i].getElementsByTagName('span')[0];
+                    line_num.innerHTML += '<span>' + (j + 1) + '</span>';
+                }
+            }
+        })();
+    </script>
+    @*----------------------------End of script section -------------------------------*@
+
+    @*------------------------------CSS --------------------------------------------------*@
+    <style>
+        pre .line-number {
+            float: left;
+            margin: 0 1em 0 -1em;
+            border-right: 1px solid;
+            text-align: right;
+        }
+
+        pre {
+            background-color: #eee;
+            overflow: auto;
+            margin: 0 0 1em;
+            padding: .5em 1em;
+        }
+
+            pre .line-number span {
+                display: block;
+                padding: 0 .5em 0 1em;
+            }
+
+        .pre-scrollable {
+            max-height: 600px;
+            overflow-y: scroll;
+        }
+    </style>
+    @*-------------------------------------End CSS--------------------------------------------------*@

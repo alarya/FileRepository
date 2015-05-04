@@ -1,0 +1,25 @@
+
+
+Q1) Given an array A[] and a number x, check for pair in A[] with sum as x - done
+
+Q2) Maximum Sum Path in Two Arrays - done
+
+Q3) Find the missing number in Arithmetic Progression - done , one small bug when series does not
+						              have any element missing
+
+Q4) Check if a given array contains duplicate elements within k distance from each other - done
+
+Q5) Find Index of 0 to be replaced with 1 to get longest continuous sequence of 1s in a 
+    binary array - done
+
+Q6) Find the first repeating element in an array of integers - done
+
+Q7) Find the closest pair from two sorted arrays - done
+
+Q8) Median of two sorted arrays - Incomplete
+
+Q9) Find the number of zeroes - done
+
+Q10) Find if there is a subarray with 0 sum - done
+
+Q11)

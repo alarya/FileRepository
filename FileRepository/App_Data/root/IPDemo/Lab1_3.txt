@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LAB 1 Resource Page</title>
+<style>
+div {
+    background-color: lightgrey;
+    width: 300px;
+    padding: 25px;
+    border: 25px solid navy;
+    margin: 25px;
+}
+</style>
+</head>
+
+<body style="background-color:green">
+  <h1>Welcome to the Resources Page</h1>
+  <p>This page contains information for all the resources that can be used.</p>
+	<h3 style="color:blue" ,"text-align:center">RESOURCES</h3>
+
+<div>
+<h3>HTTP Reference</h3>
+Tutorials:    
+          <a href="http://www.jmarshall.com/easy/http">jmarshall</a>,
+          <a href="http://www.dslab.tuwien.ac.at/Task_Description/http.html">dslab</a>,
+          <a href="http://www.wdvl.com/Internet/Protocols/HTTP/">wdvl</a>,
+          <br />
+          References: 
+          <a href="http://www.comptechdoc.org/independent/web/http/reference/">comptecdoc</a>
+          <br /></div>
+<div><h3>HTML Reference</h3>
+Tutorials:    
+          <a href="http://www.htmldog.com/guides/htmlbeginner/">Htmldog</a>,
+          <br />
+          References: 
+          <a href="http://www.htmldog.com/reference/htmltags/">Htmldog</a>,
+          <a href="http://www.w3.org/TR/html4/cover.html#minitoc">W3c</a>,
+          <a href="http://www.htmlhelp.com/reference/html40/">HtmlHelp</a>,
+          <a href="http://www.w3schools.com/html/default.asp">W3Schools</a>,
+          <br /></div>
+<div>
+<h3>Javascript Reference</h3>
+Tutorials:    
+          <a href="http://www.w3schools.com/js/default.asp">W3Schools</a>,
+          <a href="http://www.wdvl.com/Authoring/JavaScript/Tutorial/">WDVL</a>,
+          <a href="http://www.pageresource.com/jscript/index4.htm">pageresource</a>,
+          <a href="http://webmonkey.wired.com/webmonkey/programming/javascript/tutorials/tutorial1.html">Webmonkey</a>,
+          <a href="http://www.webdeveloper.com/javascript/javascript_js_tutorial.html">webdeveloper</a>,
+          <a href="http://www.echoecho.com/javascript.htm">echoecho</a>,
+          <br />
+          References: 
+          <a href="http://javascript-reference.info">visibone</a>,
+          <a href="http://www.devguru.com/Technologies/ecmascript/quickref/javascript_intro.html">devguru</a>,
+          <a href="http://www.webreference.com/js/index.html?start=111&amp;page=10">webreference</a>,
+          <a href="http://www.w3schools.com/js/js_obj_array.asp">W3cSchools</a>,
+          <a href="http://www.w3.org/Submission/1996/1/WD-jsss-960822">W3C</a>, <br /></div>
+
+
+<a href="file:///C:/Users/aman/Desktop/Syracuse/Sem%202/IP/Labs/Lab%201/Lab1_1.html">Home Page</a>
+<a href="file:///C:/Users/aman/Desktop/Lab1_2.html">Site Map Page</a>
+
+</body>
+
+</html>

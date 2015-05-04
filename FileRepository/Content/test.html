@@ -1,0 +1,77 @@
+
+
+<style>
+        .jumbotron {
+            background-image: url(/Content/fileBackground.jpg);
+            height: 400px;
+        }
+
+        div.jumbotron-backgroundimage {
+            float: right;
+        }
+        #slideshow {
+            position:relative;
+            height:350px;
+        }
+
+        #slideshow IMG {
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:8;
+        }
+
+        #slideshow IMG.active {
+            z-index:10;
+        }
+
+       #slideshow IMG.last-active {
+        z-index:9;
+       }
+
+    </style>
+
+
+<html>
+
+
+<body>
+
+<div id="slideshow">
+    <img src="download1.png" alt="" class="active" />
+    <img src="edit1.png" alt="" />
+    <img src="share1.png" alt="" />
+</div>
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+ function slideSwitch() {
+            var $active = $('#slideshow IMG.active');
+
+            if ($active.length == 0) $active = $('#slideshow IMG:last');
+
+            var $next = $active.next().length ? $active.next()
+                : $('#slideshow IMG:first');
+
+            $active.addClass('last-active');
+
+            $next.css({ opacity: 0.0 })
+                .addClass('active')
+                .animate({ opacity: 1.0 }, 1000, function () {
+                    $active.removeClass('active last-active');
+                });
+        }
+
+        $(function () {
+            setInterval("slideSwitch()", 5000);
+        });
+    });
+</script>
+
+
+
+
+</body>
+
+</html>

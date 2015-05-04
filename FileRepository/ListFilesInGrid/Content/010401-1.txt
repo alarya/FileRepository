@@ -1,0 +1,382 @@
+  When you think ASP, think...
+<http://www.4guysfromrolla.com/> 	
+
+			<http://www.4guysfromrolla.com/search/>
+
+	
+/Recent Articles/ <http://www.4guysfromrolla.com/webtech/>
+<http://aspnet.4guysfromrolla.com/rss/rss.aspx>
+All Articles <http://www.4guysfromrolla.com/webtech/index_asp.shtml>
+ASP.NET Articles <http://aspnet.4guysfromrolla.com/default.aspx>
+ASPFAQs.com <http://www.aspfaqs.com/aspfaqs/>
+Message Board <http://www.aspmessageboard.com/>
+Related Web Technologies <http://www.4guysfromrolla.com/webtech/LearnMore/>
+User Tips! <http://www.4guysfromrolla.com/webtech/tips/>
+Coding Tips <http://www.4guysfromrolla.com/webtech/top10/>
+Search <http://www.4guysfromrolla.com/search/>
+
+	
+		
+	
+
+
+	
+*/Sections:/*
+Book Reviews <http://www.15seconds.com/book/default.htm>
+Sample Chapters <http://www.4guysfromrolla.com/webtech/chapters/>
+Commonly Asked Message Board Questions
+<http://www.4guysfromrolla.com/webtech/amb/>
+Headlines from ASPWire.com
+<http://www.4guysfromrolla.com/webtech/aspnews.asp>
+JavaScript Tutorials <http://www.4guysfromrolla.com/webtech/111599-1.shtml>
+MSDN Communities Hub
+<http://communities2.microsoft.com/home/console.aspx?siteid=34000003>
+Official Docs <http://www.4guysfromrolla.com/webtech/officialdocs.shtml>
+Security <http://www.4guysfromrolla.com/webtech/LearnMore/Security.asp>
+Stump the SQL Guru! <http://www.4guysfromrolla.com/webtech/sqlguru/>
+Web Hosts <http://webhost.thelist.com/>
+XML Info <http://www.4guysfromrolla.com/webtech/xml.shtml>
+*/Information:/*
+Advertise <http://www.4guysfromrolla.com/advertise.shtml>
+Feedback <http://www.4guysfromrolla.com/feedback.shtml>
+Author an Article <http://www.4guysfromrolla.com/authors.shtml>
+Technology Jobs <http://www.justtechjobs.com/Jobseekers.asp>
+
+	
+		
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+
+
+internet.com <http://www.internet.com/>
+	
+IT <http://www.internet.com/it/>
+Developer <http://www.internet.com/developer/>
+Internet News <http://www.internetnews.com>
+Small Business <http://www.smallbusinesscomputing.com>
+Personal Technology <http://www.internet.com/personaltechnology/>
+
+Search internet.com <http://search.internet.com>
+Advertise <http://www.internet.com/mediakit/>
+Corporate Info <http://www.internet.com/Internetcom/Door/41188>
+Newsletters <http://e-newsletters.internet.com/>
+Tech Jobs <http://www.justtechjobs.com/>
+E-mail Offers <http://e-newsletters.internet.com/mailinglists.html>
+
+	
+		
+
+	
+ASP <http://www.4guysfromrolla.com/> 	ASP.NET
+<http://aspnet.4guysfromrolla.com/> 	ASP FAQs
+<http://www.aspfaqs.com/aspfaqs/> 	Message Board
+<http://www.aspmessageboard.com/> 	Feedback
+<http://www.4guysfromrolla.com/feedback.shtml> 	ASP Jobs
+<http://4guysfromrolla.justtechjobs.com/> 	
+
+Print this page.
+</ASPScripts/PrintPage.asp?REF=%2Fwebtech%2F010401%2D1%2Eshtml>
+
+Web Production Manager
+<http://4guysfromrolla.justtechjobs.com/CBJSViewJob.asp?ID={0F89EBB8-168E-4482-9366-535EB52ABE3C}>
+Targus
+US-CA-Los Angeles
+
+Justtechjobs.com <http://4guysfromrolla.justtechjobs.com/> Post A Job
+<http://www.justtechjobs.com/CBEmpPostJobLogin.asp?CB=4guysfromrolla.com> |
+Post A Resume <http://4guysfromrolla.justtechjobs.com/CBJSEditResume.asp>
+
+
+*Published:* Thursday, January 04, 2001
+
+* Efficiently Reading Large Text Files *
+/ By Bret Hern <mailto:bhern@spamcop.net> /
+
+------------------------------------------------------------------------
+
+For More Information...
+For more information on the FileSystemObject, be sure to check out the
+FileSystemObject FAQs Category
+<http://www.aspfaqs.com/aspfaqs/ShowCategory.asp?CatID=4> at ASPFAQs.com
+<http://www.aspfaqs.com/aspfaqs/>!
+
+/- continued - <#postadlink>/
+
+Is there a big, honking text file standing between you and performance
+nirvana? Wondering how you can find the needle in that 10 MB haystack?
+About to give up on the FileSystemObject? What follows is a way to read
+those big files quickly enough to make Evelyn Wood jealous.
+
+At relatively small sizes - ~100K or less - using the standard methods
+of the FileSystemObject and TextStream object to read in entire files
+are reasonably snappy. However, once the file sizes get into megabyte
+territory, the standard approaches begin to have, er, issues. Let?s take
+a scenario where you need to read a text file to determine if a keyword
+is present. For the text file, I set up three test cases - a file size
+of 10 KB, 100 KB and 1,000 KB. In each test, the keyword to be found was
+placed at the tail end of the file.
+
+Here?s the standard, "brute-force" method of loading up the entire file
+into a single buffer variable:
+
+||
+
+const ForReading = 1
+dim strSearchThis
+dim objFS
+dim objTS
+set objFS = Server.CreateObject("Scripting.FileSystemObject")
+set objTS = objFS.OpenTextFile(Server.MapPath("myfile.txt"), _
+                               ForReading)
+
+strSearchThis = objTS.ReadAll
+if instr(strSearchThis, "keyword") > 0 then
+    Response.Write "Found it!"
+end if
+
+While this works fine at smaller file sizes, once we break the megabyte
+barrier, we?re looking at script timeouts. Notice the explosion in time
+required to complete the above task against the 1 MB file - only the
+most dedicated of users will hang around that long.
+
+*Test #1: Brute Force*
+/(all times in seconds)/
+ 	10 KB File	100 KB File 	1000 KB File
+TextStream ReadAll 	0.01	0.62	73.56
+
+Clearly that won?t work for our large file search. You might then be
+tempted to simply parse the file line by line to get it into our search
+string, thinking that a hard-working loop might outperform the |ReadAll|
+method. You would be wrong. The following method, with just a simple
+string concatenation, is even slower:
+
+||
+
+const ForReading = 1
+dim strSearchThis
+dim objFS
+dim objTS
+set objFS = Server.CreateObject("Scripting.FileSystemObject")
+set objTS = objFS.OpenTextFile(Server.MapPath("myfile.txt"), _
+                               ForReading)
+
+do until objTS.AtEndOfStream
+  strSearchThis = strSearchThis & objTS.ReadLine
+loop
+
+if instr(strSearchThis, "keyword") > 0 then
+  Response.Write "Found it!"
+end if
+
+*Test #1: Standard Parse*
+/(all times in seconds)/
+ 	10 KB File	100 KB File 	1000 KB File
+Standard Parse 	0.02	1.27	162.44
+
+It turns out that string concatenation is one of the slower operations
+in the engine, and this method?s performance reflects that. (Of course,
+if you could count on the keyword being fully contained on one line, and
+you had no other value for the file beyond this one check, you could
+simply parse the file and perform the |INSTR| check on each line of the
+loop without taking the concatenation hit. That approach would be
+extremely fast, but it?s a bit of a cheat for the topic at hand, so
+let?s move on.)
+
+Now, there is a way, using an extremely counterintuitive dynamic
+array-building approach, to build up a searchable array that results in
+very fast performance. Despite what you?ve always heard about |REDIM|ing
+arrays as a bad idea, it turns out that the array processing overhead is
+minuscule compared to the string concatenation issues noted above.
+Here?s how this approach lays out:
+
+||
+
+const ForReading = 1
+dim strSearchThis
+redim arrSearchThis(-1)
+dim i
+dim objFS
+dim objTS
+set objFS = Server.CreateObject("Scripting.FileSystemObject")
+set objTS = objFS.OpenTextFile(Server.MapPath("myfile.txt"), _
+                               ForReading)
+
+i = 0
+do until objTS.AtEndOfStream
+  redim preserve arrSearchThis(i)
+  arrSearchThis(i) = objTS.ReadLine
+  i = i + 1
+loop
+
+strSearchThis = join(arrSearchThis, VbCrLf)
+if instr(strSearchThis, "keyword") > 0 then
+  Response.Write "Found it!"
+end if
+
+*Test #1: Redimmed Array*
+/(all times in seconds)/
+ 	10 KB File	100 KB File 	1000 KB File
+Redimmed Array 	0.02	0.15	2.05
+
+Not bad, eh? I generally stop when I get a 30 or 40-fold performance
+improvement, but as every good infomercial commands, wait, there?s more!
+
+Besides the more commonly used |ReadAll| and |ReadLine| methods, the
+TextStream object also supports a |Read(/n/)| method, where |/n/| is the
+number of bytes in the file/textstream in question. By instantiating an
+additional object (a file object), we can obtain the size of the file to
+be read, and then use the |Read(/n/)| method to race through our file.
+As it turns out, the "read bytes" method is extremely fast by comparison:
+
+||
+
+const ForReading = 1
+const TristateFalse = 0
+dim strSearchThis
+dim objFS
+dim objFile
+dim objTS
+set objFS = Server.CreateObject("Scripting.FileSystemObject")
+set objFile = objFS.GetFile(Server.MapPath("myfile.txt"))
+set objTS = objFile.OpenAsTextStream(ForReading, TristateFalse)
+
+strSearchThis = objTS.Read(objFile.Size)
+
+if instr(strSearchThis, "keyword") > 0 then
+    Response.Write "Found it!"
+end if
+
+*Test #1: Read Bytes*
+/(all times in seconds)/
+ 	10 KB File	100 KB File 	1000 KB File
+Read Bytes 	0.01	0.03	0.28
+
+A pretty good day?s work. We started at over a minute to perform this
+read/search, and we?re now down well under a second. While there would
+be some minor additional overhead associated with the additional object,
+the massive speed improvement would in most cases be an appropriate
+tradeoff. Wrap a function declaration around this snippet and you've got
+another good tool for the toolbox!
+
+Test Summary
+ 	10 KB File	100 KB File 	1000 KB File
+TextStream ReadAll 	0.01	0.62	73.56
+Standard Parse 	0.02	1.27	162.44
+Redimmed Array 	0.02	0.15	2.05
+Read Bytes 	0.01	0.03	0.28
+
+Test Conditions...
+All tests were performed on an otherwise idle webserver configured with
+128 MB RAM, a single 450 MHz Pentium II processor, running Windows 2000
+Advanced Server (IIS V5.0). The test timings were done with the VBScript
+|Timer| function, meaning that at the low-end extremes (the 10 KB File
+readings), it would be imprudent to read too much into the 100ths of
+second differences between methods. All timings included both setup
+tasks (variable dimensioning) and shutdown tasks (object destruction).
+(For information on timing the execution of ASP scripts, be sure to
+read: Timing ASP Execution Using a Profiling Component
+</webtech/122700-1.shtml> and Timing the Execution of Your ASP Scripts
+</webtech/122799-1.shtml>!)
+
+# By Bret Hern <mailto:bhern@spamcop.net>
+
+*Credits:* Billy Monroe asked the question in the
+|microsoft.public.scripting.vbscript| newsgroup that got this ball
+rolling, Bill James brought forward the "Redimmed Array" approach, and
+Al Dunbar joined me in wondering aloud about the relative speed of the
+|Read(n)| function. This article wouldn't have happened without them.
+
+------------------------------------------------------------------------
+Windows Internet Technology <http://www.internet.com/sections/win.html>
+| ASP.NET <http://aspnet.4guysfromrolla.com/> [1.x
+<http://aspnet.4guysfromrolla.com/1.x/>] [2.0
+<http://aspnet.4guysfromrolla.com/2.0/>] | ASPMessageboard.com
+<http://www.aspmessageboard.com/> | ASPFAQs.com
+<http://www.aspfaqs.com/aspfaqs/> | Advertise
+<http://www.4guysfromrolla.com/advertise.shtml> | Feedback
+<http://www.4guysfromrolla.com/feedback.shtml> | Author an Article
+<http://www.4guysfromrolla.com/authors.shtml>
+------------------------------------------------------------------------
+
+	
+
+Internet.com <http://www.internet.com/>
+The Network for Technology Professionals
+
+*Search:*
+
+About Internet.com <http://www.internet.com/Internetcom/Door/41188>
+Copyright 2010 QuinStreet Inc. All Rights Reserved.
+
+Legal Notices <http://www.internet.com/Internetcom/Door/41187>,
+Licensing <http://www.internet.com/Internetcom/Door/41189#Licensing1>,
+Permissions
+<http://www.internet.com/Internetcom/Door/41189#Permissions>, Privacy
+Policy <http://www.internet.com/Internetcom/Door/41186>.
+Advertise <http://www.internet.com/mediakit/> | Newsletters
+<http://e-newsletters.internet.com/> | E-mail Offers
+<http://e-newsletters.internet.com/announcement_list.html>
+
+Solutions <#>
+
+
+    Whitepapers and eBooks
+
+Helpful Cloud Computing Resources
+<http://www.internet.com/IBM_Cloud/Door/42153>
+		MORE WHITEPAPERS, EBOOKS, AND ARTICLES <http://www.devx.com/solutions>
+
+
+    Webcasts
+
+User Experience Management Indicators for Business and IT Success
+<http://k.kikuy.com/cgi/r?;n=203;c=610975;s=9272;x=7936;f=201005241650250;u=j;z=TIMESTAMP;q=1;site=footer>
+Ensuring Performance Meets Business and Web User Needs
+<http://v.vokir.com/cgi/r?;n=203;c=619334;s=9272;x=7936;f=201006081816370;u=j;z=TIMESTAMP;q=1;site=footer>
+		MORE WEBCASTS, PODCASTS, AND VIDEOS <http://www.devx.com/solutions>
+
+
+    Downloads and eKits
+
+Get BlackBerry Enterprise Server Express for Free <
+http://ad.doubleclick.net/click;h=v2|3CA9|0|0|%2a|l;226661901;0-0;0;50468945;31-1|1;37478164|37496041|1;;%3fhttp://na.blackberry.com/eng/services/business/server/express/?CPID=STCUSNAUSFY11Q2000000121100001530070001CUS040>
+		MORE DOWNLOADS, EKITS, AND FREE TRIALS <http://www.devx.com/solutions>
+
+
+    Tutorials and Demos
+
+Demo: Google Site Search
+<http://j.jiuyt.com/cgi/r?;n=203;c=641891;s=9272;x=7936;f=201007211453560;u=j;z=TIMESTAMP;q=1;site=footer>
+Virtual Event: Master Essential Techniques for Leveraging the Cloud
+<http://c.cullr.com/cgi/r?;n=203;c=621007;s=9272;x=7936;f=201006141238400;u=j;z=TIMESTAMP;q=1;site=footer>
+Article: Explore Application Lifecycle Management Tools in Visual Studio
+2010
+<http://g.gituy.com/cgi/r?;n=203;c=613996;s=9272;x=7936;f=201005281805430;u=j;z=TIMESTAMP;q=1;site=footer>
+Internet.com Hot List: Get the Inside Scoop on IT and Developer Products
+<http://www.devx.com/HotList/Link/40644>
+		New Security Solutions Using Intel(R) vPro(TM) Technology
+<http://k.kloiy.com/cgi/r?;n=203;c=598138;s=9272;x=7936;f=201005100820070;u=j;z=TIMESTAMP;q=1;site=footer>
+All About Botnets <http://www.devx.com/ebook/Article/39031>
+MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES
+<http://www.devx.com/solutions>
+

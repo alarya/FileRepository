@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+<style>
+        html,body{
+            height:100%;
+        }
+        .navbar-inverse{
+            background-color: #990000;
+            opacity: 1;
+        }
+        .navbar .nav > li > a {
+             float: none;
+             line-height: 19px;
+             padding: 9px 10px 11px;
+             text-decoration: none;
+             text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+             opacity: 1 ;
+             color: white;
+        }
+        .navbar-nav{
+             color:black;
+        }
+        body{
+            background-color:ActiveBorder;
+        }
+        .footerStrip{
+            background-color:#990000;
+            opacity: 0.95;
+            height: 40px;
+            position:fixed;
+            bottom:0px;
+            right:0px;
+            left:0px;
+        }
+        .navbar-brand{
+            padding-right:5em;
+        }
+        body{
+            padding-bottom: 100px;   
+        }
+        #holder{
+           min-height: 100%;
+           position:relative;
+}
+</style>
+
+
+</head>
+
+
+<body>
+    <div id="holder">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img src="~/Content/logo1.png" style="float:left"/>
+                    @Html.ActionLink("File Repository", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" } )
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Feeds", "Feeds", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - File Repository</p>
+
+                <br />
+                <br />
+            </footer>
+        </div>
+        <div class="footerStrip"></div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+
+</html>
+
+

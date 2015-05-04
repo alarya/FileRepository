@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FileRepository.Models.File>
+@{
+    ViewBag.Title = "DownloadFile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>Download File</h1></center>
+<hr />
+<div class="btn btn-default">
+    @Html.ActionLink("Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })
+</div>
+
+<h2>Do you want to download any of the dependent files too ?</h2>
+
+
+@using (Html.BeginForm("Download", "Developer", new { id = ViewBag.FileId, files = (ViewBag.FileList) }))
+{
+    @*foreach(var item in ViewBag.FileList)
+        {
+            string filename = item.Value ;
+            @*<div>@Html.CheckBox(filename,false, htmlAttributes: new { @value = item.Key }) @item.Value </div>*@
+    //<div>@Html.CheckBox("Files",false, htmlAttributes: new { @value = item.Key }) @item.Value </div>
+    //}*@
+
+    <table class="table">
+        <tr>
+            <th>File Name</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Path)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><div>@Html.CheckBox("Files", false, htmlAttributes: new { @value = item.FileId }) @item.FileName </div></td>
+                <td>@Html.DisplayFor(modelItem => item.Path)</td>
+            </tr>
+        }
+    </table>
+    <input type="submit" name="Download" id="Download" value="Download" class="btn btn-default" />
+}
+
+
+
+

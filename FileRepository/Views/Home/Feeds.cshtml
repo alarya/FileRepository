@@ -1,0 +1,62 @@
+﻿@model List<FileRepository.Controllers.Feeds>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<center><h1>ACTIVITY LOGS</h1></center>
+<hr/>
+
+<div class="btn btn-default">
+    @Html.ActionLink("Back", "Index")
+</div>
+
+    @foreach (var item in ViewBag.feedList)
+    {
+
+        <div class="feed">
+            <div class="user">
+                User: @item.user
+            </div>
+            <div class="message">
+                Mesage: @item.message
+            </div>
+            <div class="Date">
+                Date: @item.date
+            </div>
+        </div>
+        <br />
+        <hr />
+    }
+
+    <style>
+        div.feed {
+            margin-left: auto;
+            margin-right: auto;
+            width: 50em;
+            -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+            padding: 15px 4px 17px 0;
+            text-align: center;
+            background: #fff;
+        }
+
+        div.user {
+            text-align: left;
+            font-size: small;
+        }
+
+        div.message {
+            text-align: center;
+            font-size: large;
+        }
+
+        div.user {
+            text-align: left;
+            font-size: small;
+        }
+    </style>
+
+

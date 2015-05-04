@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "RenameFolder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>Rename Folder</h1></center>
+<hr />
+<div class="btn btn-default">
+    @Html.ActionLink("Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })
+</div>
+<br />
+<br />
+<br />
+Current Name : @ViewBag.FileName
+<br />
+@using (Html.BeginForm("Rename", "Admin", new { id = ViewBag.FileId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div style="float:left">New Name:</div> <input type="text" name="newFileName" />
+    <br/>
+    <br/>
+    <input type="submit" name="Change" id="Add" value="Change" class="btn btn-default" />
+
+}

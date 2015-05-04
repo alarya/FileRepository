@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>File Viewer</h1></center>
+<hr />
+@Html.ActionLink("Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })
+<br />
+<div>@ViewBag.path</div>
+<div id="File" style="display:none"><pre class="pre-scrollable line-number">@ViewBag.FileData</pre></div>
+
+@*-------------------------------script section --------------------------------------------*@
+<script type="text/javascript">
+    (function () {
+        var pre = document.getElementsByTagName('pre'),
+            pl = pre.length;
+        for (var i = 0; i < pl; i++) {
+            pre[i].innerHTML = '<span class="line-number"></span>' + pre[i].innerHTML + '<span class="cl"></span>';
+            var num = pre[i].innerHTML.split(/\n/).length;
+            for (var j = 0; j < num; j++) {
+                var line_num = pre[i].getElementsByTagName('span')[0];
+                line_num.innerHTML += '<span>' + (j + 1) + '</span>';
+            }
+        }
+    })();
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#File').first().fadeIn(1000);
+    });
+</script>
+
+@*----------------------------End of script section -------------------------------*@
+
+@*------------------------------CSS --------------------------------------------------*@
+<style>
+    pre .line-number {
+        float: left;
+        margin: 0 1em 0 -1em;
+        border-right: 1px solid;
+        text-align: right;
+    }
+
+    pre {
+        background-color: #eee;
+        overflow: auto;
+        margin: 0 0 1em;
+        padding: .5em 1em;
+    }
+
+        pre .line-number span {
+            display: block;
+            padding: 0 .5em 0 1em;
+        }
+
+    .pre-scrollable {
+        max-height: 600px;
+        overflow-y: scroll;
+    }
+</style>
+@*-------------------------------------End CSS--------------------------------------------------*@

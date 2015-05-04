@@ -1,0 +1,172 @@
+﻿@model IEnumerable<FileRepository.Models.File>
+@*@model IEnumerable<FileRepository.Models.FileNavigatorModel>*@
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    
+        var alertmessage = $('#alertMessage').text();
+        $('#alertMessage').empty();
+        if (alertmessage) {            
+            alert(alertmessage);           
+        }
+        
+    });
+</script>
+
+
+
+<style>
+    .table tr:hover {
+        background-color: #990000;
+        opacity: 0.2;
+    }
+
+    .table tr td:hover {
+        color: black;
+    }
+
+    table {
+        background-color: #F3F3F3;
+        border-collapse: collapse;
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    th {
+        background-color: #990000;
+        color: #FFF;
+        cursor: pointer;
+        padding: 5px 10px;
+        opacity: 0.5;
+    }
+
+    tr:nth-of-type(odd) {
+        background-color: #E6E6E6;
+    }
+    .btn btn-default{
+        width:120px;
+    }
+     div.createFolder ,div.UploadSection {
+            width: 50em;
+            -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+            padding: 15px 4px 17px 0;
+            text-align: center;
+            background: #fff;
+        }
+</style>
+
+<center><h1>Home Page</h1></center>
+<hr />
+    <div id="CurrentPath">Current Path: @ViewBag.CurrentPath</div>
+    <div class="btn btn-default" style="float:left">@Html.ActionLink("Go Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })</div>
+
+<div class="search" style="float:right">
+
+    @using (Html.BeginForm("Search", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <img src="~/Content/Search.png" />
+        <input type="text" name="searchString" /><input type="submit" name="Submit" id="Submit" value="Search" class="btn btn-default" style="float:right{padding-left: 1em}" />
+    }
+</div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerName)
+            </th>
+            <th></th>
+        </tr>
+        @*Display all foders first*@
+        @foreach (var item in Model)
+        {
+            if (item.Type == "folder")
+            {
+                <tr>
+                    <td>
+                        <img src="~/Content/folder1.png" />
+                        @Html.ActionLink(item.FileName, "DirectoryChangeIn", new { path = ViewBag.CurrentPath + "/" + item.FileName })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OwnerName)
+                    </td>
+                    <td>
+                        <div class="btn btn-default">@Html.ActionLink("View All Files", "ViewFolder", new { path = ViewBag.CurrentPath + "/" + item.FileName })</div>
+                        <div class="btn btn-default">@Html.ActionLink("Rename", "RenameFolder", new { id = item.FileId })</div>
+                    </td>
+                </tr>
+            }
+        }
+        @* Then display files *@
+        @foreach (var item in Model)
+        {
+            if (item.Type == "file")
+            {
+                <tr>
+                    <td>
+                        <img src="~/Content/file1.png" />
+                        @Html.ActionLink(item.FileName, "ViewFiles", new { path = ViewBag.CurrentPath + "/" + item.FileName })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OwnerName)
+                    </td>
+                    <td>
+                        <div class="btn btn-default"> @Html.ActionLink("Download", "DownloadFile", new { id = item.FileId })</div>
+                        <div class="btn btn-default"> @Html.ActionLink("Delete", "DeleteFile", new { id = item.FileId }, new { onclick = "return confirm('Are you sure you wish to delete this file?');" })</div>
+                        <div class="btn btn-default"> @Html.ActionLink("Dependencies", "Dependencies", new { id = item.FileId })</div>
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.FileId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.FileId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.FileId })
+                        </td>*@
+                </tr>
+            }
+        }
+    </table>
+    <hr />
+    @*<div>
+            <label for="fileUpload"></label>
+            Select File to Upload: <input id="fileUpload" type="file" />
+
+            <input id="btnUploadFile" type="button" value="Upload File" />
+        </div>*@
+
+<img src="~/Content/upload.png" style="float:left" />
+    <div class="UploadSection">
+        @using (Html.BeginForm("UploadFile", "Admin", new { CurrentPath = ViewBag.CurrentPath }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="file" style="float:left" /><input type="submit" name="Submit" id="Submit" value="Upload" class="btn btn-default" />
+        }
+    </div>
+    <br />
+<img src="~/Content/folderAdd.png" style="float:left" />
+    <div class="createFolder">
+        @using (Html.BeginForm("CreateFolder", "Admin", new { CurrentPath = ViewBag.CurrentPath }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="submit" name="Submit" id="Submit" value="Create a new Folder" style="float:left" class=" btn btn-default" />
+            <input type="text" name="folder" id="createFolderText">
+        }
+    </div>
+
+    <div id="alertMessage" hidden="true">@ViewBag.alertMessage</div>

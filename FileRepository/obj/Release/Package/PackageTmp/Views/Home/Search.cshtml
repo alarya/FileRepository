@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<center><h1>Seach files</h1></center>
+<hr />
+
+    <h2>Search Results</h2>
+    <table class="table">
+        <tr>
+            <th>
+                FileName
+            </th>
+            <th>
+                Path
+            </th>
+        </tr>
+        @foreach(var item in ViewBag.searchResult)
+        {
+           <tr>
+               <td>
+                  @item.FileName
+              </td>
+               <td>
+                  @item.Path
+              </td>
+           </tr>
+        }          
+    </table>

@@ -1,0 +1,134 @@
+﻿@model IEnumerable<FileRepository.Models.File>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style>
+    .table tr:hover {
+        background-color: #990000;
+        opacity: 0.4;
+    }
+
+    .table tr td:hover {
+        color: black;
+    }
+
+    table {
+        background-color: #F3F3F3;
+        border-collapse: collapse;
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    th {
+        background-color: #990000;
+        color: #FFF;
+        cursor: pointer;
+        padding: 5px 10px;
+        opacity: 0.5;
+    }
+
+    tr:nth-of-type(odd) {
+        background-color: #E6E6E6;
+    }
+
+    .btn btn-default {
+        width: 120px;
+    }
+
+    div.createFolder, div.UploadSection {
+        width: 50em;
+        -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+        padding: 15px 4px 17px 0;
+        text-align: center;
+        background: #fff;
+    }
+</style>
+
+<center><h1>Home Page</h1></center>
+<hr />
+
+<div id="CurrentPath">Current Path: @ViewBag.CurrentPath</div>
+<div class="btn btn-default" style="float:left">
+    @Html.ActionLink("Go Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })
+</div>
+<div class="search" style="float:right">
+
+    @using (Html.BeginForm("Search", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <img src="~/Content/Search.png" />
+        <input type="text" name="searchString" /><input type="submit" name="Submit" id="Submit" value="Search" class="btn btn-default" style="float:right{padding-left: 1em}" />
+    }
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OwnerName)
+        </th>
+        <th>Action</th>
+    </tr>
+    @*Display all foders first*@
+    @foreach (var item in Model)
+    {
+        if (item.Type == "folder")
+        {
+            <tr>
+                <td>
+                    <img src="~/Content/folder1.png" />
+                    @Html.ActionLink(item.FileName, "DirectoryChangeIn", new { path = ViewBag.CurrentPath + "/" + item.FileName })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerName)
+                </td>
+                <td>
+                    <div class="btn btn-default">
+                        @Html.ActionLink("View All Files", "ViewFolder", new { path = ViewBag.CurrentPath + "/" + item.FileName })
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+    @* Then display files *@
+    @foreach (var item in Model)
+    {
+        if (item.Type == "file")
+        {
+            <tr>
+                <td>
+                    <img src="~/Content/file1.png" />
+                    @Html.ActionLink(item.FileName, "ViewFiles", new { path = ViewBag.CurrentPath + "/" + item.FileName })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerName)
+                </td>
+                <td>
+                    <div class="btn btn-default">
+                        @Html.ActionLink("Download", "DownloadFile", new { id = item.FileId })
+                    </div>
+                    <div class="btn btn-default">
+                        @Html.ActionLink("Dependencies", "Dependencies", new { id = item.FileId })
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<hr />

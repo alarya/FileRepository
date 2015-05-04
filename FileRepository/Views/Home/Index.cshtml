@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <div class="=jumbotron-backgroundimage"></div>
+</div>
+<canvas id="myCanvas" width="578" height="200"></canvas>
+<hr />
+
+<div id="slideshow">
+    <div>
+        <img src="~/Content/download1.png">
+    </div>
+    <div>
+        <img src="~/Content/edit1.png">
+    </div>
+    <div>
+        <img src="~/Content/share1.png">
+    </div>
+</div>
+
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#slideshow > div:gt(0)").hide();
+
+        setInterval(function () {
+            $('#slideshow > div:first')
+              .fadeOut(600)
+              .next()
+              .fadeIn(600)
+              .end()
+              .appendTo('#slideshow');
+        }, 2000);
+    });
+</script>
+
+
+    <style>
+        .jumbotron {
+            background-image: url(/Content/fileBackground.jpg);
+            height: 400px;
+        }
+
+        div.jumbotron-backgroundimage {
+            float: right;
+        }
+        #slideshow { 
+            margin: 10px auto; 
+            position: relative; 
+            width: 900px; 
+            height: 300px; 
+            padding: 10px;           
+        }
+
+        #slideshow > div { 
+           position: absolute; 
+           top: 10px; 
+           left: 10px; 
+           right: 10px; 
+           bottom: 10px; 
+        } 
+
+    </style>
+
+
+<script type="text/javascript">
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    context.font = '60pt Calibri';
+    context.fillStyle = '#FF704D';
+    context.fillText('File Repository', 80, 100);
+</script>

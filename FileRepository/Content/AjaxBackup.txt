@@ -1,0 +1,71 @@
+        $('#btnUploadFile').on('click', function () {
+
+            //alert("Upload button was clicked");
+            var data = new FormData();
+            var files = $("#fileUpload").get(0).files;      // Add the uploaded image content to the form data collection
+            var path = $('#CurrentPath').val ;
+            if (files.length > 0)
+            {
+                data.append("UploadedImage", files[0]);
+                data.append("path", path);
+                //Make Ajax request with the contentType = false, and procesDate = false
+                $.ajax(
+                {
+                    type: "POST",
+                    url: "/api/FileUpload/UploadFile",
+                    contentType: false,
+                    processData: false,
+                    data: { 'data': data, 'path': path },
+                    success: function () {
+                        alert("File Uploaded");
+                        //$('#FileContent').html($('#fileUpload').get(0).files);
+                    },
+                    error: function (HttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+            else
+                alert("No file selected");
+        });
+
+        //view multiple files
+        $('#ViewMultiple').on('click', function () {
+
+            var SelectedFiles = new Object();
+
+            $('.FileNavigatorCheckBox').each(function (i, item) {
+                SelectedFiles.FileName
+            });
+
+            if (files.length > 0) {
+                data.append("path", path);
+                //Make Ajax request with the contentType = false, and procesDate = false
+                $.ajax(
+                {
+                    type: "POST",
+                    url: "/api/FileUpload/UploadFile",
+                    contentType: false,
+                    processData: false,
+                    data: { 'data': data, 'path': path },
+                    success: function () {
+                        alert("File Uploaded");
+                        //$('#FileContent').html($('#fileUpload').get(0).files);
+                    },
+                    error: function (HttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+            else
+                alert("No file selected");
+        });
+
+        $("#Submit").click(function () {
+
+            var text = $("#createFolderText").val;
+            var reg = /^[a-zA-Z0-9\s]+$/;
+            Console.log(reg.test(text));
+            if (!reg.test(text))
+                alert("Illegal characters in Folder name");
+        });

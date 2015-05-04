@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <style>
+        #FileNavigator1{
+            border:solid;
+        }        
+        #FileNavigator1 tr:hover{
+            background-color:#CCFFFF;
+        }
+        #FileNavigator1Head{
+            background-color:#CCFFFF;
+        }
+    </style>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //when document loads populate the root files and folders
+            $.ajax({
+                type: "POST",
+                url: "/Developer/GetFilesAndFolders",
+                dataType: "json",
+                success: function(data){
+                    alert("In display function");
+                    //Console.log(data);
+                    $.each(data, function (index, element) {
+                        $("#FileNavigator1").append(($('<tr >').attr("class","FileNavigator1Element")).append($('<td>', {text : element.name}),
+                        $('<td>', { text: element.type }), $('<td>', {text : "100Kb" }))
+                        );                            
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                }
+            });
+           
+            //function to display files and folders
+            //function updateFilesAndFolders(data) {
+                //alert("In display function");
+                //var items = JSON.parse(data);
+                //for(var i = 0; i < items.length; i++)
+                //    document.getElementById("FileNavigator1").appendChild =
+                //        "<tr>" +
+                //        "<td>" + items[i].name + "</td>" +
+                //        "<td>" + items[i].type + "</td>" +
+                //        "<td>" + "not yet coded"+ "</td>" +
+                //        + "</tr>"
+            //}
+        });
+
+        //Click event on FileNavigatorElements
+        $(document).on('click', 'tr.FileNavigator1Element', function (event) {
+            event.preventDefault();
+            alert("I was clicked");
+        });
+    </script>
+</head>
+
+
+<body>
+        <h1>Developer View</h1>
+
+        <center>
+            <table id="FileNavigator1" class="FileNavigator" width="50%">
+                <tr id="FileNavigator1Head" class="FileNavigator1Element">
+                    <td>File Name</td>
+                    <td>Extension</td>
+                    <td>Size</td>
+                </tr>
+            </table>
+        </center>
+    <script type="text/javascript">
+
+    </script>
+
+</body>
+</html>

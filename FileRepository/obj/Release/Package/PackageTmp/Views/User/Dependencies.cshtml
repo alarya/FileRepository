@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Dependencies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>Dependencies</h1></center>
+<hr />
+<div class="btn btn-default">
+    @Html.ActionLink("Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })
+</div>
+
+<div><h2>File Name : @ViewBag.FileName</h2></div>
+
+<div><h3>Dependencies</h3></div>
+<table class="table">
+    <tr>
+        <th>File Name</th>
+    </tr>
+    @foreach (var item in ViewBag.dependencies)
+    {
+        <tr>
+            <td>@item</td>
+        </tr>
+    }
+</table>

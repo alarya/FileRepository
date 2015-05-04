@@ -1,0 +1,29 @@
+﻿.skm_BookReviewContainer
+{
+    text-align: center;
+}
+
+.skm_BookReview
+{
+}
+
+.skm_BookReviewByline
+{
+    font-size: 85%;
+}
+
+.skm_EditRow
+{
+    background-color: #DDD;
+}
+
+.skm_RowLabel
+{
+    font-weight: bold;
+    text-align: right;
+}
+
+pre b 
+{
+    color: Red;
+}

@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Dependencies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        var alertmessage = $('#alertMessage').text();
+        $('#alertMessage').empty();
+        if (alertmessage) {
+            alert(alertmessage);
+        }
+
+    });
+</script>
+
+<center><h1>Dependencies</h1></center>
+<hr/>
+<div class="btn btn-default">
+    @Html.ActionLink("Back", "DirectoryChangeOut", new { path = ViewBag.CurrentPath })
+</div>
+
+    <div><h2>File Name : @ViewBag.FileName</h2></div>
+
+    <div><h3>Dependencies</h3></div>
+    <table class="table">
+        <tr>
+            <th>File Name</th>
+        </tr>
+        @foreach (var item in ViewBag.dependencies)
+        {
+            <tr>
+                <td>@item</td>
+            </tr>
+        }
+    </table>
+
+
+
+
+
+
+    <div>Add dependencies</div>
+    @using (Html.BeginForm("AddDependency", "Admin", new { CurrentPath = ViewBag.CurrentPath }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.DropDownList("SelectFile", null, htmlAttributes: new { @class = "form-control" })
+        <input name="FileId" value="@ViewBag.FileId" hidden="true" />
+        <input type="submit" name="Add" id="Add" value="Add" />
+    }
+
+    <div id="alertMessage" hidden="true">@ViewBag.alertMessage</div>

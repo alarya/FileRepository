@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LAB 1 Site Map Page</title>
+</head>
+
+<body style="background-color:grey">
+  <h1>Welcome to the Site Map Page</h1>
+  <p>This page contains information about structure of this website like page with links, and a few words of explaination, to the home page, a sequence of lab exercise pages, my final project page, etc. </p>
+	<h3 style="color:blue" ,"text-align:center">HOME PAGE DESCRIPTION</h3>
+<p> The homee page has been developed as a part of the Lab 1 requirement. It contains general introduction about me along with my contact details. The Home Page will have links to other pages as well. </p>
+</br>
+<h4> Links to other Lab Exercise pages</h4>
+<p> As a part of this course, we will be completing arounf 8 - 10 labs. The links to few of the lab exercise pages have been mentioned below:
+</br></br><a href="http://ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment2.htm">Lab#2</a></br>
+<a href="http://ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/Assignment3.htm">Lab#3</a></br>
+<a href="http://ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/Assignment4.htm">Lab#4</a></br>
+<a href="http://ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/Assignment5.htm">Lab#5</a></br>
+
+<h4> Final Project</h4>
+<p> Out of the three options provided, I intend to work  on option#2 for my Final Project.</p> </br>
+<a href="http://ecs.syr.edu/faculty/fawcett/handouts/CSE686/projects/FinalProj2S15.pdf">Final Project Page</a></br>
+</br></br></br></br><a href="file:///C:/Users/aman/Desktop/Syracuse/Sem%202/IP/Labs/Lab%201/Lab1_1.html">Home Page</a>
+<a href="file:///C:/Users/aman/Desktop/Syracuse/Sem%202/IP/Labs/Lab%201/Lab1_3.html">Resources Page</a>
+</body>
+
+</html>

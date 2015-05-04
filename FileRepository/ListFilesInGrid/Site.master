@@ -1,0 +1,56 @@
+﻿<%@ Master Language="VB" CodeFile="Site.master.vb" Inherits="Site" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Untitled Page</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="Styles/sinorcaish-screen.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/CustomStyles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- ======== Header ======== -->
+        <div id="header">
+          <div class="left">
+              List Files in a Grid
+          </div>
+          <div class="right">
+            <%=DateTime.Now.ToShortDateString()%>
+          </div>
+          <div class="subheader">
+            <em>♫♬ Files, files, everywhere a file... ♫♬</em>
+          </div>
+        </div>
+
+        <!-- ======== Left Sidebar ======== -->
+        <div id="sidebar">
+          <div>
+            <ul>
+                <li><a href="Default.aspx">Home</a></li>
+                <li><a href="ListFilesVB.aspx">List Files (VB)</a></li>
+                <li><a href="ListFilesCS.aspx">List Files (CB)</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ======== Main Content ======== -->
+        <div id="main">
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+            
+            </asp:ContentPlaceHolder>
+        </div>
+        
+        <!-- ======== Footer ======== -->
+
+        <div id="footer">
+            ASP.NET application designed by <a href="http://www.4guysfromrolla.com/ScottMitchell.shtml">Scott Mitchell</a>.
+            Website design by <a href="mailto:J.Zaitseff@zap.org.au">John Zaitseff</a>, and available 
+            at <a href="http://www.opendesigns.org/preview/?template=1700">OpenDesigns.org</a>.
+        </div>
+        
+    </form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <title>LAB 1 Home Page</title>
+
+<style>
+h1 {
+color: brown;
+text-align: center;
+}
+body {
+  background-color: #b0c4de;
+}
+</style>
+  </head>
+
+<body >
+  <h1>Welcome to the course CIS 686: Internet Programming</h1>
+  <p>This exercise is a part of Lab#1</p>
+	<h3 style="color:blue" ,"text-align:center">ABOUT ME</h3>
+<img src="C:\Users\aman\Desktop\IMG_3135~2.jpg" alt="Aman Gupta" style="width:304px;height:228px">
+<h4> Introduction </h4>
+<p> Myself AMAN GUPTA. I am graduate student enrolled at Syracuse University pursuing my Master's Degree in Computer Science. I belong from India. </p>
+
+<h4> Contact Details </h4>
+<p> 110 Westcott Street </br>
+Apartment#1</br>
+Syracuse,NY 13210 </br>
++1 315 728 0086</br>
+agupta15@syr.edu</br>
+</p>
+<a href="file:///C:/Users/aman/Desktop/Lab1_2.html">Site Map Page</a>
+<a href="file:///C:/Users/aman/Desktop/Lab1_3.html">Resources Page</a>
+</body>
+
+</html>
